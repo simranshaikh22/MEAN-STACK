@@ -284,6 +284,49 @@ app.get('/api/smart-mandi', async (req, res) => {
     }
 });
 
+// GET all crops
+app.get('/api/crops', async (req, res) => {
+    try {
+        const crops = await Crop.find();
+        res.json({ success: true, data: crops });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// POST create crop
+app.post('/api/crops', async (req, res) => {
+    try {
+        const crop = new Crop(req.body);
+        await crop.save();
+        res.json({ success: true, data: crop });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// PUT update crop
+app.put('/api/crops/:id', async (req, res) => {
+    try {
+        const crop = await Crop.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!crop) return res.status(404).json({ success: false, message: 'Crop not found' });
+        res.json({ success: true, data: crop });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// DELETE crop
+app.delete('/api/crops/:id', async (req, res) => {
+    try {
+        const crop = await Crop.findByIdAndDelete(req.params.id);
+        if (!crop) return res.status(404).json({ success: false, message: 'Crop not found' });
+        res.json({ success: true, message: 'Crop deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
 // 6. CROP INFO API
 app.get('/api/crops/:crop', async (req, res) => {
     try {

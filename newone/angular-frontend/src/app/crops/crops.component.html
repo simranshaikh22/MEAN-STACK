@@ -1,0 +1,57 @@
+<div class="crops-container">
+  <div class="header">
+    <h2>🌾 Crop Management</h2>
+    <button class="btn-add" (click)="openAdd()">+ Add Crop</button>
+  </div>
+
+  <p *ngIf="message" class="message">{{ message }}</p>
+  <p *ngIf="loading">Loading...</p>
+
+  <!-- Table -->
+  <table *ngIf="!loading && crops.length > 0">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Soil Type</th>
+        <th>Season</th>
+        <th>Water</th>
+        <th>Duration</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let crop of crops">
+        <td>{{ crop.name }}</td>
+        <td>{{ crop.soil_type }}</td>
+        <td>{{ crop.season }}</td>
+        <td>{{ crop.water_requirements }}</td>
+        <td>{{ crop.duration }}</td>
+        <td>
+          <button class="btn-edit" (click)="openEdit(crop)">✏️ Edit</button>
+          <button class="btn-delete" (click)="delete(crop._id!)">🗑️ Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="!loading && crops.length === 0">No crops found. Add one!</p>
+
+  <!-- Form Modal -->
+  <div class="modal-overlay" *ngIf="showForm">
+    <div class="modal">
+      <h3>{{ isEditing ? 'Edit Crop' : 'Add New Crop' }}</h3>
+      <input [(ngModel)]="formData.name" placeholder="Crop Name" />
+      <input [(ngModel)]="formData.soil_type" placeholder="Soil Type" />
+      <input [(ngModel)]="formData.season" placeholder="Season" />
+      <input [(ngModel)]="formData.water_requirements" placeholder="Water Requirements" />
+      <input [(ngModel)]="formData.fertilizer" placeholder="Fertilizer" />
+      <input [(ngModel)]="formData.yield_per_acre" placeholder="Yield per Acre" />
+      <input [(ngModel)]="formData.duration" placeholder="Duration" />
+      <textarea [(ngModel)]="formData.description" placeholder="Description"></textarea>
+      <div class="form-actions">
+        <button class="btn-save" (click)="save()">💾 Save</button>
+        <button class="btn-cancel" (click)="showForm = false">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

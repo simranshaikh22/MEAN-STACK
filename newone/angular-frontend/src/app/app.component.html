@@ -29,39 +29,46 @@
 <main class="container my-5">
     <!-- Features Grid Navigation -->
     <div class="row g-4 mb-5">
-        <div class="col-md-3 col-6">
+        <div class="col-md-2 col-6">
             <div class="feature-card" [class.active]="activeSection === 'weather'" role="button" (click)="showSection('weather')">
                 <div class="feature-icon"><i class="fas fa-cloud-sun"></i></div>
                 <h5>Live Weather</h5>
                 <small class="text-secondary">Real-time weather updates</small>
             </div>
         </div>
-        <div class="col-md-3 col-6">
+        <div class="col-md-2 col-6">
             <div class="feature-card" [class.active]="activeSection === 'mandi'" role="button" (click)="showSection('mandi')">
                 <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
                 <h5>Mandi Rates</h5>
                 <small class="text-secondary">Live market prices</small>
             </div>
         </div>
-        <div class="col-md-3 col-6">
+        <div class="col-md-2 col-6">
             <div class="feature-card" [class.active]="activeSection === 'calculator'" role="button" (click)="showSection('calculator')">
                 <div class="feature-icon"><i class="fas fa-calculator"></i></div>
                 <h5>Yield Calculator</h5>
                 <small class="text-secondary">Calculate crop yield</small>
             </div>
         </div>
-        <div class="col-md-3 col-6">
+        <div class="col-md-2 col-6">
             <div class="feature-card" [class.active]="activeSection === 'diseases'" role="button" (click)="showSection('diseases')">
                 <div class="feature-icon"><i class="fas fa-leaf"></i></div>
                 <h5>Diseases</h5>
                 <small class="text-secondary">Plant diseases & treatment</small>
             </div>
         </div>
+        <div class="col-md-2 col-6">
+            <div class="feature-card" [class.active]="activeSection === 'crops'" role="button" (click)="showSection('crops')">
+                <div class="feature-icon"><i class="fas fa-seedling"></i></div>
+                <h5>Crop Manager</h5>
+                <small class="text-secondary">Add, edit &amp; delete crops</small>
+            </div>
+        </div>
     </div>
 
     <!-- Main Content Area -->
     <div id="content-area">
-        
+
         <!-- Weather Section -->
         <div *ngIf="activeSection === 'weather'" class="section">
             <div class="content-card">
@@ -126,7 +133,6 @@
                         <i class="fas fa-robot me-2"></i> Smart Predictions
                     </button>
                 </div>
-
                 <div *ngIf="mandiView === 'simple'" id="simple-view">
                     <div class="table-responsive">
                         <table class="table table-hover align-middle">
@@ -142,7 +148,6 @@
                         </table>
                     </div>
                 </div>
-
                 <div *ngIf="mandiView === 'smart'" id="smart-view">
                     <div class="row g-4">
                         <div class="col-md-6" *ngFor="let p of smartPredictions">
@@ -216,7 +221,7 @@
         <!-- Diseases Section -->
         <div *ngIf="activeSection === 'diseases'" class="section">
             <div class="content-card">
-                <h3 class="mb-4 fw-semibold"><i class="fas fa-leaf me-2"></i> Plant Diseases & Treatment</h3>
+                <h3 class="mb-4 fw-semibold"><i class="fas fa-leaf me-2"></i> Plant Diseases &amp; Treatment</h3>
                 <div class="row g-4">
                     <div class="col-md-4" *ngFor="let d of diseasesData">
                         <div class="card h-100 disease-card shadow-sm">
@@ -233,6 +238,82 @@
                 </div>
             </div>
         </div>
+
+        <!-- Crops CRUD Section -->
+        <div *ngIf="activeSection === 'crops'" class="section">
+            <div class="content-card">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3 class="fw-semibold mb-0"><i class="fas fa-seedling me-2"></i> Crop Manager</h3>
+                    <button class="btn btn-success" (click)="openAddCrop()">+ Add Crop</button>
+                </div>
+
+                <p *ngIf="cropMessage" class="alert alert-success">{{ cropMessage }}</p>
+                <p *ngIf="cropLoading" class="text-secondary">Loading...</p>
+
+                <div class="table-responsive" *ngIf="!cropLoading && crops.length > 0">
+                    <table class="table table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th>Name</th><th>Soil</th><th>Season</th>
+                                <th>Water</th><th>Duration</th><th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let crop of crops">
+                                <td>{{ crop.name }}</td>
+                                <td>{{ crop.soil_type }}</td>
+                                <td>{{ crop.season }}</td>
+                                <td>{{ crop.water_requirements }}</td>
+                                <td>{{ crop.duration }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning me-2" (click)="openEditCrop(crop)">✏️ Edit</button>
+                                    <button class="btn btn-sm btn-danger" (click)="deleteCrop(crop._id)">🗑️ Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p *ngIf="!cropLoading && crops.length === 0" class="text-secondary">No crops found. Add one!</p>
+
+                <!-- Inline Form -->
+                <div class="card p-4 mt-4 border-success" *ngIf="showCropForm">
+                    <h5 class="mb-3">{{ cropEditing ? '✏️ Edit Crop' : '➕ Add New Crop' }}</h5>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <input class="form-control" [(ngModel)]="cropForm.name" placeholder="Crop Name" />
+                        </div>
+                        <div class="col-md-6">
+                            <input class="form-control" [(ngModel)]="cropForm.soil_type" placeholder="Soil Type" />
+                        </div>
+                        <div class="col-md-6">
+                            <input class="form-control" [(ngModel)]="cropForm.season" placeholder="Season" />
+                        </div>
+                        <div class="col-md-6">
+                            <input class="form-control" [(ngModel)]="cropForm.water_requirements" placeholder="Water Requirements" />
+                        </div>
+                        <div class="col-md-6">
+                            <input class="form-control" [(ngModel)]="cropForm.fertilizer" placeholder="Fertilizer" />
+                        </div>
+                        <div class="col-md-6">
+                            <input class="form-control" [(ngModel)]="cropForm.yield_per_acre" placeholder="Yield per Acre" />
+                        </div>
+                        <div class="col-md-6">
+                            <input class="form-control" [(ngModel)]="cropForm.duration" placeholder="Duration" />
+                        </div>
+                        <div class="col-12">
+                            <textarea class="form-control" [(ngModel)]="cropForm.description" placeholder="Description" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="mt-3 d-flex gap-2">
+                        <button class="btn btn-success" (click)="saveCrop()">💾 Save</button>
+                        <button class="btn btn-secondary" (click)="showCropForm = false">Cancel</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
     <!-- Quick Guides / Footer Elements -->
@@ -277,6 +358,7 @@
             <span class="api-badge">🌦️ Live Weather</span>
             <span class="api-badge">📊 Mandi Rates</span>
             <span class="api-badge">🌱 Crop Diseases</span>
+            <span class="api-badge">🌾 Crop Manager</span>
         </div>
     </div>
 </footer>
