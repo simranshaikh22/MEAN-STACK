@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class AppComponent implements OnInit {
   private http = inject(HttpClient);
-  private readonly API_BASE = 'http://localhost:3000/api';
+  private readonly API_BASE = 'https://mean-stack-ggqc.onrender.com/api';
 
   // State
   currentLang = 'en';
