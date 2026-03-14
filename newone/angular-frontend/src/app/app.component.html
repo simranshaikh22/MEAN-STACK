@@ -1,0 +1,282 @@
+<!-- Header -->
+<header class="farmer-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h1 class="header-title">
+                    <i class="fas fa-tractor"></i> 
+                    {{ currentLang === 'en' ? 'Krishi Sahay' : (currentLang === 'hi' ? 'कृषि सहाय' : 'कृषि सहाय') }}
+                </h1>
+                <p class="mb-0">Farmer First • किसान पहले</p>
+            </div>
+            <div class="col-md-6 text-end">
+                <div class="d-flex justify-content-end gap-2">
+                    <button class="lang-btn" [class.active]="currentLang === 'en'" (click)="changeLanguage('en')">
+                        <i class="fas fa-language"></i> English
+                    </button>
+                    <button class="lang-btn" [class.active]="currentLang === 'hi'" (click)="changeLanguage('hi')">
+                        <i class="fas fa-language"></i> हिन्दी
+                    </button>
+                    <button class="lang-btn" [class.active]="currentLang === 'mr'" (click)="changeLanguage('mr')">
+                        <i class="fas fa-language"></i> मराठी
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="container my-5">
+    <!-- Features Grid Navigation -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-3 col-6">
+            <div class="feature-card" [class.active]="activeSection === 'weather'" role="button" (click)="showSection('weather')">
+                <div class="feature-icon"><i class="fas fa-cloud-sun"></i></div>
+                <h5>Live Weather</h5>
+                <small class="text-secondary">Real-time weather updates</small>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="feature-card" [class.active]="activeSection === 'mandi'" role="button" (click)="showSection('mandi')">
+                <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                <h5>Mandi Rates</h5>
+                <small class="text-secondary">Live market prices</small>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="feature-card" [class.active]="activeSection === 'calculator'" role="button" (click)="showSection('calculator')">
+                <div class="feature-icon"><i class="fas fa-calculator"></i></div>
+                <h5>Yield Calculator</h5>
+                <small class="text-secondary">Calculate crop yield</small>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="feature-card" [class.active]="activeSection === 'diseases'" role="button" (click)="showSection('diseases')">
+                <div class="feature-icon"><i class="fas fa-leaf"></i></div>
+                <h5>Diseases</h5>
+                <small class="text-secondary">Plant diseases & treatment</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div id="content-area">
+        
+        <!-- Weather Section -->
+        <div *ngIf="activeSection === 'weather'" class="section">
+            <div class="content-card">
+                <h3 class="mb-4 fw-semibold"><i class="fas fa-sun me-2"></i> Live Weather Forecast</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="fw-medium mb-3">📍 Select City</h5>
+                        <div class="d-flex flex-wrap gap-2 mb-4">
+                            <button *ngFor="let city of ['Mumbai', 'Pune', 'Nagpur', 'Nashik', 'Aurangabad', 'Kolhapur']" 
+                                    class="city-btn" (click)="getLiveWeather(city)">{{city}}</button>
+                        </div>
+                        <div class="mt-4">
+                            <label class="form-label fw-medium">📍 Other Cities</label>
+                            <select class="form-select" name="citySelect" [(ngModel)]="selectedCity" (change)="getLiveWeather(selectedCity)">
+                                <option value="" disabled>— Select city from list —</option>
+                                <option value="Ahmednagar">Ahmednagar</option>
+                                <option value="Akola">Akola</option>
+                                <option value="Latur">Latur</option>
+                                <option value="Satara">Satara</option>
+                            </select>
+                            <button class="btn btn-outline-success mt-3 w-100" (click)="getLiveWeather(selectedCity)">
+                                <i class="fas fa-cloud-sun me-2"></i> <span>Get Weather</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="weather-result">
+                            <h4 class="fw-semibold mb-3">🌤️ Weather Information</h4>
+                            <div *ngIf="weatherData; else weatherPrompt">
+                                <div class="p-3 border rounded bg-light">
+                                    <h2 class="text-success">{{ weatherData.temperature }}°C</h2>
+                                    <h5>{{ weatherData.city }}</h5>
+                                    <p class="mb-0 text-muted">{{ weatherData.condition }} ({{weatherData.description}})</p>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-6"><small>Humidity: {{weatherData.humidity}}%</small></div>
+                                        <div class="col-6"><small>Wind: {{weatherData.wind_speed}} m/s</small></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ng-template #weatherPrompt>
+                                <p class="text-secondary">Select a city to view live weather</p>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mandi Section -->
+        <div *ngIf="activeSection === 'mandi'" class="section">
+            <div class="content-card">
+                <h3 class="mb-4 fw-semibold">
+                    <i class="fas fa-brain me-2"></i> Smart Mandi Predictions
+                    <span class="badge bg-warning text-dark ms-2">AI</span>
+                </h3>
+                <div class="btn-group mb-4">
+                    <button type="button" class="btn btn-outline-success" [class.active]="mandiView === 'simple'" (click)="mandiView = 'simple'">
+                        <i class="fas fa-table me-2"></i> Simple Rates
+                    </button>
+                    <button type="button" class="btn btn-outline-warning" [class.active]="mandiView === 'smart'" (click)="showSmartView()">
+                        <i class="fas fa-robot me-2"></i> Smart Predictions
+                    </button>
+                </div>
+
+                <div *ngIf="mandiView === 'simple'" id="simple-view">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead>
+                                <tr><th>Commodity</th><th>Market</th><th>District</th><th>Min (₹)</th><th>Max (₹)</th><th>Avg (₹)</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of mandiData">
+                                    <td>{{item.commodity}}</td><td>{{item.market}}</td><td>{{item.district}}</td>
+                                    <td>{{item.min_price}}</td><td>{{item.max_price}}</td><td><strong>{{item.modal_price}}</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div *ngIf="mandiView === 'smart'" id="smart-view">
+                    <div class="row g-4">
+                        <div class="col-md-6" *ngFor="let p of smartPredictions">
+                            <div class="card p-3 shadow-sm border-warning h-100">
+                                <h5>{{p.commodity}} <span class="float-end">{{p.prediction.trendIcon}}</span></h5>
+                                <div class="d-flex justify-content-between mt-3">
+                                    <span>Current: ₹{{p.currentPrice}}</span>
+                                    <span class="text-success fw-bold">Next: ₹{{p.prediction.tomorrowPrice}}</span>
+                                </div>
+                                <small class="text-muted mt-2 d-block">{{p.weather.impact}}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calculator Section -->
+        <div *ngIf="activeSection === 'calculator'" class="section">
+            <div class="content-card">
+                <h3 class="mb-4 fw-semibold"><i class="fas fa-calculator me-2"></i> Crop Yield Calculator</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-4">
+                            <label class="form-label fw-medium">🌱 Select Crop</label>
+                            <select class="form-select" name="cropSelect" [(ngModel)]="selectedCrop">
+                                <option value="wheat">Wheat (गहू)</option>
+                                <option value="rice">Rice (तांदूळ)</option>
+                                <option value="cotton">Cotton (कापूस)</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label fw-medium">📏 Select Land Area</label>
+                            <input type="number" name="areaSize" class="form-control" [(ngModel)]="selectedArea" placeholder="Enter size">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label fw-medium">⚖️ Select Unit</label>
+                            <div class="d-flex gap-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="unit" id="acre" value="acre" [(ngModel)]="selectedUnit">
+                                    <label class="form-check-label" for="acre">Acre</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="unit" id="hectare" value="hectare" [(ngModel)]="selectedUnit">
+                                    <label class="form-check-label" for="hectare">Hectare</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-success w-100 py-2" (click)="calculateYield()">
+                            <i class="fas fa-calculator me-2"></i> Calculate Yield
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="calc-result">
+                            <h4 class="fw-semibold mb-3">📊 Result</h4>
+                            <div *ngIf="yieldResult; else calcPrompt">
+                                <div class="p-4 border border-success rounded bg-light text-center">
+                                    <h1 class="text-success mb-0">{{yieldResult}}</h1>
+                                    <small class="text-muted">Total Estimated Production</small>
+                                </div>
+                            </div>
+                            <ng-template #calcPrompt>
+                                <p class="text-secondary">Enter details and click calculate</p>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Diseases Section -->
+        <div *ngIf="activeSection === 'diseases'" class="section">
+            <div class="content-card">
+                <h3 class="mb-4 fw-semibold"><i class="fas fa-leaf me-2"></i> Plant Diseases & Treatment</h3>
+                <div class="row g-4">
+                    <div class="col-md-4" *ngFor="let d of diseasesData">
+                        <div class="card h-100 disease-card shadow-sm">
+                            <img [src]="d.image" class="card-img-top" style="height: 180px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="text-danger">
+                                    {{ currentLang === 'en' ? d.name : (currentLang === 'hi' ? d.name_hi : d.name_mr) }}
+                                </h5>
+                                <p class="small mb-1"><strong>Symptoms:</strong> {{ currentLang === 'en' ? d.symptoms : (currentLang === 'hi' ? d.symptoms_hi : d.symptoms_mr) }}</p>
+                                <p class="small text-success"><strong>Treatment:</strong> {{ currentLang === 'en' ? d.treatment : d.treatment_hi }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Guides / Footer Elements -->
+    <div class="row mt-5 g-4">
+        <div class="col-md-6">
+            <div class="quick-card h-100">
+                <h4 class="fw-semibold mb-4"><i class="fas fa-book-open me-2"></i> Crop Guide</h4>
+                <div class="d-grid gap-3">
+                    <button *ngFor="let c of ['wheat', 'rice', 'cotton', 'sugarcane']" class="crop-guide-btn" (click)="showCropInfo(c)">
+                        <i class="fas fa-seedling me-3 text-success"></i> 
+                        <span class="text-capitalize">{{c}}</span>
+                        <span class="ms-auto text-secondary small">{{getMarathiName(c)}}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="quick-card h-100">
+                <h4 class="fw-semibold mb-4"><i class="fas fa-mountain me-2"></i> Soil Tips</h4>
+                <div class="accordion" id="soilTips">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#tip1">
+                                <span>🖤 Black Soil Care</span>
+                            </button>
+                        </h2>
+                        <div id="tip1" class="accordion-collapse collapse show" data-bs-parent="#soilTips">
+                            <div class="accordion-body">Best for cotton, requires good drainage, add organic compost regularly.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="farmer-footer">
+    <div class="container text-center">
+        <h4 class="fw-semibold mb-3">🌾 Krishi Sahay - Farmer First 🌾</h4>
+        <p class="mb-3">Toll Free: 1800-180-1551 | help@krishisahay.gov.in</p>
+        <div class="mt-4">
+            <span class="api-badge">🌦️ Live Weather</span>
+            <span class="api-badge">📊 Mandi Rates</span>
+            <span class="api-badge">🌱 Crop Diseases</span>
+        </div>
+    </div>
+</footer>

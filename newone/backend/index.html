@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌾 Krishi Sahay - Farmer Assistance</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="farmer-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h1 class="header-title">
+                        <i class="fas fa-tractor"></i> कृषि सहाय
+                    </h1>
+                    <p class="mb-0">Farmer First • किसान पहले</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <div class="d-flex justify-content-end gap-2">
+                        <button class="lang-btn active" onclick="changeLanguage('en')">
+                            <i class="fas fa-language"></i> English
+                        </button>
+                        <button class="lang-btn" onclick="changeLanguage('hi')">
+                            <i class="fas fa-language"></i> हिन्दी
+                        </button>
+                        <button class="lang-btn" onclick="changeLanguage('mr')">
+                            <i class="fas fa-language"></i> मराठी
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        <!-- Features Grid -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-3 col-6">
+                <div class="feature-card" role="button" onclick="showSection('weather')">
+                    <div class="feature-icon">
+                        <i class="fas fa-cloud-sun"></i>
+                    </div>
+                    <h5 data-i18n="weather">Live Weather</h5>
+                    <small class="text-secondary" data-i18n="weather_desc">Real-time weather updates</small>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="feature-card" role="button" onclick="showSection('mandi')">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h5 data-i18n="mandi">Mandi Rates</h5>
+                    <small class="text-secondary" data-i18n="mandi_desc">Live market prices</small>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="feature-card" role="button" onclick="showSection('calculator')">
+                    <div class="feature-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h5 data-i18n="calculator">Yield Calculator</h5>
+                    <small class="text-secondary" data-i18n="calc_desc">Calculate crop yield</small>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="feature-card" role="button" onclick="showSection('diseases')">
+                    <div class="feature-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h5 data-i18n="diseases">Diseases</h5>
+                    <small class="text-secondary" data-i18n="disease_desc">Plant diseases & treatment</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Sections -->
+        <div id="content-area">
+            <!-- Weather Section -->
+            <div id="weather-section" class="section">
+                <div class="content-card">
+                    <h3 class="mb-4 fw-semibold" data-i18n="weather_forecast">
+                        <i class="fas fa-sun me-2"></i> Live Weather Forecast
+                    </h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="fw-medium mb-3" data-i18n="select_city">📍 Select City</h5>
+                            <div class="d-flex flex-wrap gap-2 mb-4">
+                                <button class="city-btn" onclick="getLiveWeather('Mumbai')">Mumbai</button>
+                                <button class="city-btn" onclick="getLiveWeather('Pune')">Pune</button>
+                                <button class="city-btn" onclick="getLiveWeather('Nagpur')">Nagpur</button>
+                                <button class="city-btn" onclick="getLiveWeather('Nashik')">Nashik</button>
+                                <button class="city-btn" onclick="getLiveWeather('Aurangabad')">Aurangabad</button>
+                                <button class="city-btn" onclick="getLiveWeather('Kolhapur')">Kolhapur</button>
+                                <button class="city-btn" onclick="getLiveWeather('Amravati')">Amravati</button>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <label class="form-label fw-medium">📍 Other Cities</label>
+                                <select class="form-select" id="city-select" onchange="getLiveWeather(this.value)">
+                                    <option selected disabled>— Select city from list —</option>
+                                    <option value="Ahmednagar">Ahmednagar</option>
+                                    <option value="Akola">Akola</option>
+                                    <option value="Chandrapur">Chandrapur</option>
+                                    <option value="Jalgaon">Jalgaon</option>
+                                    <option value="Latur">Latur</option>
+                                    <option value="Nanded">Nanded</option>
+                                    <option value="Osmanabad">Osmanabad</option>
+                                    <option value="Parbhani">Parbhani</option>
+                                    <option value="Ratnagiri">Ratnagiri</option>
+                                    <option value="Sangli">Sangli</option>
+                                    <option value="Satara">Satara</option>
+                                    <option value="Solapur">Solapur</option>
+                                    <option value="Wardha">Wardha</option>
+                                    <option value="Yavatmal">Yavatmal</option>
+                                </select>
+                                <button class="btn btn-outline-success mt-3 w-100" onclick="getLiveWeather(document.getElementById('city-select').value)">
+                                    <i class="fas fa-cloud-sun me-2"></i> <span data-i18n="get_weather">Get Weather</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="weather-result" class="weather-result">
+                                <h4 class="fw-semibold mb-3" data-i18n="weather_info">🌤️ Weather Information</h4>
+                                <p class="text-secondary" data-i18n="select_city_prompt">Select a city to view live weather</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mandi Rates Section -->
+            <div id="mandi-section" class="section" style="display: none;">
+                <div class="content-card">
+                    <h3 class="mb-4 fw-semibold">
+                        <i class="fas fa-brain me-2"></i> Smart Mandi Predictions
+                        <span class="badge bg-warning text-dark ms-2">AI</span>
+                    </h3>
+                    
+                    <!-- View Toggle Buttons -->
+                    <div class="btn-group mb-4" role="group">
+                        <button type="button" class="btn btn-outline-success active" onclick="showSimpleView()" id="simple-view-btn">
+                            <i class="fas fa-table me-2"></i> Simple Rates
+                        </button>
+                        <button type="button" class="btn btn-outline-warning" onclick="showSmartView()" id="smart-view-btn">
+                            <i class="fas fa-robot me-2"></i> Smart Predictions
+                        </button>
+                    </div>
+                    
+                    <!-- Simple View -->
+                    <div id="simple-view">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead>
+                                    <tr>
+                                        <th data-i18n="commodity">Commodity</th>
+                                        <th data-i18n="market">Market</th>
+                                        <th data-i18n="district">District</th>
+                                        <th data-i18n="min_price">Min (₹)</th>
+                                        <th data-i18n="max_price">Max (₹)</th>
+                                        <th data-i18n="modal_price">Avg (₹)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="mandi-table">
+                                    <!-- Data loaded via JavaScript -->
+                                    <tr>
+                                        <td colspan="6" class="text-center py-4 text-secondary">
+                                            <i class="fas fa-circle-notch fa-spin me-2"></i> Loading live rates...
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button class="btn btn-outline-success mt-3" onclick="loadMandiRates()">
+                            <i class="fas fa-sync-alt me-2"></i> <span data-i18n="refresh_rates">Refresh Rates</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Smart View -->
+                    <div id="smart-view" style="display: none;">
+                        <div id="smart-predictions-container" class="row g-4">
+                            <!-- Predictions will be loaded here -->
+                        </div>
+                        <div class="text-center mt-4">
+                            <button class="btn btn-warning" onclick="loadSmartPredictions()">
+                                <i class="fas fa-sync-alt me-2"></i> Update Predictions
+                            </button>
+                            <small class="text-secondary d-block mt-2">
+                                <i class="fas fa-info-circle"></i> Using SMA/WMA algorithms with weather data
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calculator Section -->
+            <div id="calculator-section" class="section" style="display: none;">
+                <div class="content-card">
+                    <h3 class="mb-4 fw-semibold" data-i18n="yield_calc">
+                        <i class="fas fa-calculator me-2"></i> Crop Yield Calculator
+                    </h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label class="form-label fw-medium" data-i18n="select_crop">🌱 Select Crop</label>
+                                <select class="form-select" id="crop-select">
+                                    <option value="wheat">Wheat (गहू)</option>
+                                    <option value="rice">Rice (तांदूळ)</option>
+                                    <option value="cotton">Cotton (कापूस)</option>
+                                    <option value="sugarcane">Sugarcane (ऊस)</option>
+                                    <option value="soybean">Soybean (सोयाबीन)</option>
+                                    <option value="maize">Maize (मका)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="form-label fw-medium" data-i18n="enter_area">📏 Select Land Area</label>
+                                <select class="form-select mb-2" id="area-select">
+                                    <option selected disabled>— Choose area —</option>
+                                    <option value="1">1 Acre</option>
+                                    <option value="2">2 Acre</option>
+                                    <option value="3">3 Acre</option>
+                                    <option value="4">4 Acre</option>
+                                    <option value="5">5 Acre</option>
+                                    <option value="6">6 Acre</option>
+                                    <option value="7">7 Acre</option>
+                                    <option value="8">8 Acre</option>
+                                    <option value="9">9 Acre</option>
+                                    <option value="10">10 Acre</option>
+                                </select>
+                                <input type="hidden" id="area-input" value="5">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="form-label fw-medium" data-i18n="select_unit">⚖️ Select Unit</label>
+                                <div class="d-flex gap-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="unit" id="acre" value="acre" checked>
+                                        <label class="form-check-label" for="acre" data-i18n="acre">
+                                            Acre
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="unit" id="hectare" value="hectare">
+                                        <label class="form-check-label" for="hectare" data-i18n="hectare">
+                                            Hectare
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button class="btn btn-success w-100 py-2" onclick="calculateYield()">
+                                <i class="fas fa-calculator me-2"></i> <span data-i18n="calculate">Calculate Yield</span>
+                            </button>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div id="calc-result" class="calc-result">
+                                <h4 class="fw-semibold mb-3" data-i18n="result">📊 Result</h4>
+                                <div id="result-content">
+                                    <p class="text-secondary" data-i18n="enter_details">Enter details to calculate</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diseases Section -->
+            <div id="diseases-section" class="section" style="display: none;">
+                <div class="content-card">
+                    <h3 class="mb-4 fw-semibold" data-i18n="plant_diseases">
+                        <i class="fas fa-leaf me-2"></i> Plant Diseases & Treatment
+                    </h3>
+                    <div class="row g-4" id="diseases-container">
+                        <!-- Loaded via JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="row mt-5 g-4">
+            <div class="col-md-6">
+                <div class="quick-card h-100">
+                    <h4 class="fw-semibold mb-4" data-i18n="crop_guide">
+                        <i class="fas fa-book-open me-2"></i> Crop Guide
+                    </h4>
+                    <div class="d-grid gap-3">
+                        <button class="crop-guide-btn" onclick="showCropInfo('wheat')">
+                            <i class="fas fa-seedling me-3 text-success"></i> 
+                            <span data-i18n="wheat">Wheat</span>
+                            <span class="ms-auto text-secondary">गहू</span>
+                        </button>
+                        <button class="crop-guide-btn" onclick="showCropInfo('rice')">
+                            <i class="fas fa-seedling me-3 text-success"></i> 
+                            <span data-i18n="rice">Rice</span>
+                            <span class="ms-auto text-secondary">तांदूळ</span>
+                        </button>
+                        <button class="crop-guide-btn" onclick="showCropInfo('cotton')">
+                            <i class="fas fa-seedling me-3 text-success"></i> 
+                            <span data-i18n="cotton">Cotton</span>
+                            <span class="ms-auto text-secondary">कापूस</span>
+                        </button>
+                        <button class="crop-guide-btn" onclick="showCropInfo('sugarcane')">
+                            <i class="fas fa-seedling me-3 text-success"></i> 
+                            <span data-i18n="sugarcane">Sugarcane</span>
+                            <span class="ms-auto text-secondary">ऊस</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="quick-card h-100">
+                    <h4 class="fw-semibold mb-4" data-i18n="soil_tips">
+                        <i class="fas fa-mountain me-2"></i> Soil Tips
+                    </h4>
+                    <div class="accordion" id="soilTips">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#tip1">
+                                    <span data-i18n="black_soil">🖤 Black Soil Care</span>
+                                </button>
+                            </h2>
+                            <div id="tip1" class="accordion-collapse collapse show" data-bs-parent="#soilTips">
+                                <div class="accordion-body" data-i18n="black_soil_tip">
+                                    Best for cotton, requires good drainage, add organic compost regularly.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#tip2">
+                                    <span data-i18n="red_soil">🧡 Red Soil Improvement</span>
+                                </button>
+                            </h2>
+                            <div id="tip2" class="accordion-collapse collapse" data-bs-parent="#soilTips">
+                                <div class="accordion-body" data-i18n="red_soil_tip">
+                                    Add lime to reduce acidity, use green manure, suitable for pulses.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="farmer-footer">
+        <div class="container text-center">
+            <h4 class="fw-semibold mb-3" data-i18n="footer_title">🌾 Krishi Sahay - Farmer First 🌾</h4>
+            <p class="mb-3" data-i18n="footer_sub">No Reading Required | Everything Selectable | Made for Indian Farmers</p>
+            <p class="mb-3">
+                <i class="fas fa-phone me-2"></i> Toll Free: 1800-180-1551 | 
+                <i class="fas fa-envelope me-2"></i> help@krishisahay.gov.in
+            </p>
+            <div class="mt-4">
+                <span class="api-badge">🌦️ Live Weather</span>
+                <span class="api-badge">📊 Mandi Rates</span>
+                <span class="api-badge">🌱 Crop Diseases</span>
+                <span class="api-badge">🧮 Yield Calc</span>
+            </div>
+            <small class="d-block mt-4 text-secondary" data-i18n="api_status">
+                Live MongoDB: Weather ☀️ | Mandi Rates 📊 | Diseases 🌱
+            </small>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>

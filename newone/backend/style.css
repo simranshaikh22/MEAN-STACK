@@ -1,0 +1,391 @@
+/* ========== GLOBAL STYLES ========== */
+:root {
+    --primary-green: #1e4a2c;
+    --primary-dark: #0f3b2a;
+    --primary-light: #e8f5e9;
+    --accent-gold: #ffb300;
+    --accent-light: #fff8e1;
+    --gray-bg: #f8fafc;
+    --border-light: #e2e8f0;
+    --text-dark: #1e293b;
+    --text-secondary: #64748b;
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.02);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.05);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.03);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--gray-bg);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* ========== HEADER ========== */
+.farmer-header {
+    background: white;
+    padding: 20px 0;
+    border-bottom: 2px solid var(--border-light);
+    box-shadow: var(--shadow-sm);
+}
+
+.header-title {
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--primary-green);
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+}
+
+/* ========== LANGUAGE BUTTONS ========== */
+.lang-btn {
+    background: white;
+    border: 1px solid var(--border-light);
+    color: var(--text-dark);
+    font-weight: 500;
+    padding: 8px 18px;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s;
+    font-size: 0.95rem;
+}
+
+.lang-btn.active {
+    background: var(--primary-green);
+    color: white;
+    border-color: var(--primary-green);
+}
+
+.lang-btn:hover {
+    background: #f1f5f9;
+}
+
+.lang-btn.active:hover {
+    background: #166534;
+}
+
+/* ========== FEATURE CARDS ========== */
+.feature-card {
+    background: white;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 24px 16px;
+    text-align: center;
+    color: var(--text-dark);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: var(--shadow-sm);
+}
+
+.feature-card:hover {
+    border-color: #86b986;
+    box-shadow: var(--shadow-md);
+    background: #fafdfa;
+    transform: translateY(-2px);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: var(--primary-green);
+    margin-bottom: 12px;
+}
+
+/* ========== CONTENT CARDS ========== */
+.content-card {
+    background: white;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    box-shadow: var(--shadow-sm);
+}
+
+.weather-result, .calc-result {
+    background: var(--gray-bg);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    height: 100%;
+    min-height: 280px;
+}
+
+/* ========== CITY BUTTONS ========== */
+.city-btn {
+    background: white;
+    border: 1px solid var(--border-light);
+    color: var(--text-dark);
+    font-weight: 500;
+    padding: 8px 20px;
+    border-radius: 30px;
+    transition: all 0.2s;
+    font-size: 0.95rem;
+}
+
+.city-btn:hover {
+    background: var(--primary-light);
+    border-color: var(--primary-green);
+    color: var(--primary-dark);
+}
+
+/* ========== FORM ELEMENTS ========== */
+.form-select, .form-control {
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: 10px 16px;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+}
+
+.form-select:focus, .form-control:focus {
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 3px rgba(30, 74, 44, 0.1);
+    outline: none;
+}
+
+.form-label {
+    font-weight: 500;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-green);
+    border-color: var(--primary-green);
+}
+
+/* ========== BUTTONS ========== */
+.btn-outline-success {
+    border: 1px solid var(--primary-green);
+    color: var(--primary-green);
+    background: white;
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.btn-outline-success:hover {
+    background: var(--primary-green);
+    color: white;
+    border-color: var(--primary-green);
+}
+
+.btn-success {
+    background: var(--primary-green);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+}
+
+.btn-success:hover {
+    background: #166534;
+}
+
+.btn-warning {
+    background: var(--accent-gold);
+    border: none;
+    color: var(--text-dark);
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+}
+
+.btn-warning:hover {
+    background: #ffa000;
+}
+
+/* ========== TABLE STYLES ========== */
+.table {
+    background: white;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+.table thead {
+    background: #f8fafc;
+    border-bottom: 2px solid var(--border-light);
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.table th {
+    padding: 14px 12px;
+    font-size: 0.9rem;
+}
+
+.table td {
+    padding: 12px;
+    vertical-align: middle;
+}
+
+.table-hover tbody tr:hover {
+    background: #fafdfa;
+}
+
+/* ========== QUICK CARDS ========== */
+.quick-card {
+    background: white;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+}
+
+.crop-guide-btn {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 14px 16px;
+    background: white;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    color: var(--text-dark);
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.crop-guide-btn:hover {
+    background: var(--primary-light);
+    border-color: var(--primary-green);
+}
+
+/* ========== ACCORDION ========== */
+.accordion-item {
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm) !important;
+    margin-bottom: 12px;
+    background: white;
+}
+
+.accordion-button {
+    background: white;
+    color: var(--text-dark);
+    font-weight: 500;
+    padding: 16px 20px;
+}
+
+.accordion-button:not(.collapsed) {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    box-shadow: none;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+    border-color: var(--border-light);
+}
+
+.accordion-body {
+    padding: 20px;
+    color: var(--text-secondary);
+}
+
+/* ========== FOOTER ========== */
+.farmer-footer {
+    background: white;
+    border-top: 1px solid var(--border-light);
+    padding: 40px 0;
+    margin-top: 60px;
+    color: var(--text-dark);
+}
+
+.api-badge {
+    display: inline-block;
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin: 0 4px;
+}
+
+/* ========== DISEASE CARDS ========== */
+.disease-card {
+    background: white;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: all 0.2s;
+    height: 100%;
+}
+
+.disease-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: #86b986;
+}
+
+.disease-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.disease-card .card-body {
+    padding: 20px;
+}
+
+.disease-card .card-title {
+    color: var(--primary-green);
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+/* ========== LOADING ANIMATION ========== */
+.loading {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border: 3px solid var(--border-light);
+    border-radius: 50%;
+    border-top-color: var(--primary-green);
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+    .header-title {
+        font-size: 1.75rem;
+    }
+    
+    .content-card {
+        padding: 20px;
+    }
+    
+    .feature-card {
+        padding: 20px 12px;
+    }
+    
+    .feature-icon {
+        font-size: 2rem;
+    }
+}
+
+/* ========== UTILITY CLASSES ========== */
+.text-secondary {
+    color: var(--text-secondary) !important;
+}
+
+.bg-light-green {
+    background: var(--primary-light);
+}
+
+.border-success {
+    border-color: var(--primary-green) !important;
+}

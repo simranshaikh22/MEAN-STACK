@@ -1,0 +1,181 @@
+:root {
+    --farmer-green: #2e7d32;
+    --farmer-light: #4caf50;
+    --farmer-gold: #ff9800;
+    --farmer-brown: #8d6e63;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #f5f9f5 0%, #e8f5e9 100%);
+    min-height: 100vh;
+}
+
+/* Header */
+.farmer-header {
+    background: linear-gradient(135deg, var(--farmer-green), var(--farmer-light));
+    color: white;
+    padding: 20px 0;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 4px 20px rgba(46, 125, 50, 0.3);
+}
+
+.header-title {
+    font-family: 'Mukta', sans-serif;
+    font-weight: 700;
+    font-size: 2.2rem;
+}
+
+/* Language Buttons */
+.lang-btn {
+    padding: 8px 20px;
+    border: 2px solid white;
+    background: transparent;
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.lang-btn:hover, .lang-btn.active {
+    background: white;
+    color: var(--farmer-green);
+    transform: translateY(-2px);
+}
+
+/* Feature Cards */
+.feature-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    height: 100%;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 2px solid transparent;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--farmer-green);
+    box-shadow: 0 15px 30px rgba(46, 125, 50, 0.15);
+}
+
+.feature-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--farmer-green), var(--farmer-light));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    color: white;
+    font-size: 1.8rem;
+}
+
+/* Weather Card */
+.weather-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 15px;
+    padding: 25px;
+}
+
+/* Mandi Card */
+.mandi-card {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    border-radius: 15px;
+    padding: 25px;
+}
+
+/* Calculator Card */
+.calc-card {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    border-radius: 15px;
+    padding: 25px;
+}
+
+/* API Status */
+.api-status {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: rgba(255,255,255,0.9);
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.api-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.api-live { background: #4CAF50; }
+.api-mock { background: #FF9800; }
+
+/* City Buttons */
+.city-btn {
+    background: rgba(255,255,255,0.9);
+    border: none;
+    padding: 12px;
+    margin: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.city-btn:hover {
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Loading Animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Footer */
+.farmer-footer {
+    background: var(--farmer-green);
+    color: white;
+    padding: 30px 0;
+    margin-top: 50px;
+    border-radius: 20px 20px 0 0;
+}
+
+/* Disease Card */
+.disease-card {
+    height: 100%;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+.disease-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
